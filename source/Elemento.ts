@@ -1,10 +1,12 @@
+import { CmpStyleGlobal } from "../../../component/cmp/StyleGlobal.js";
+
 export const component =
     (options?: ElementDefinitionOptions) =>
         (constructor: any) => {
             // -- GET TAGNAME FROM CLASS NAME ----------------------------------
 
             let tagName = constructor.name.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase()
-            
+
             // -- CHECK CLASS NAME ---------------------------------------------
 
             if (!tagName.includes('-'))
@@ -13,18 +15,8 @@ export const component =
             // -- THE INJECTED CLASS -------------------------------------------
 
             class KL extends constructor {
-                static _domoAttrsProps
-                    : string[]
-
                 constructor(...a: any[]) {
                     super(...a)
-                }
-
-                static get observedAttributes() {
-                    return [
-                        ...(KL._domoAttrsProps || []),
-                        ...(super.observedAttributes || [])
-                    ]
                 }
             }
 
